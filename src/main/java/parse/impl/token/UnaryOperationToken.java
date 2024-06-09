@@ -22,15 +22,6 @@ public enum UnaryOperationToken implements Token<String> {
     FAK("!", false, UnaryOperations::factorial)
     ;
 
-    public static UnaryOperationToken of(String value) {
-        for (UnaryOperationToken token : values()) {
-            if (token.value.equals(value)) {
-                return token;
-            }
-        }
-        throw new IllegalArgumentException("No such token: " + value);
-    }
-
     private final String value;
     private final boolean isPrefix;
     private final Operations.UnaryOperation<Double, Double> operation;

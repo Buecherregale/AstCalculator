@@ -39,7 +39,7 @@ public record AstImpl(Node<String> root) implements Ast<String> {
 
         var token = node.token();
         return switch (token) {
-            case DepthIncreasingToken dit -> evaluateNode(node.children()[0]);
+            case DepthIncreasingToken ignored -> evaluateNode(node.children()[0]);
             case UnaryOperationToken uot -> uot.operation().evaluate(evaluateNode(node.children()[0]));
             case BinaryOperationToken bot -> {
                 if (node.children().length != 2)

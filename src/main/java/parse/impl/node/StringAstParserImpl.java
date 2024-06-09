@@ -34,7 +34,6 @@ public class StringAstParserImpl implements AstParser<String> {
      * @return pair of placed node and new parent
      */
     private Pair<Node<String>, Node<String>> handleToken(Token<String> token, Node<String> parent, Node<String> last) {
-        System.out.println("token: " + token.value());
         Node<String> node = new NodeImpl(token);
 
         // hard code step up for uot and bot
@@ -43,15 +42,15 @@ public class StringAstParserImpl implements AstParser<String> {
             parent = parent.parent();
 
         final var nextParent = switch (token) {
-                case ValueToken vt:
+                case ValueToken ignored:
                     parent.addChild(node);
                     node.setParent(parent);
                     yield parent;
-                case DepthIncreasingToken dit:
+                case DepthIncreasingToken ignored:
                     parent.addChild(node);
                     node.setParent(parent);
                     yield node;
-                case DepthDecreasingToken ddt:
+                case DepthDecreasingToken ignored:
                     node = last;
                     yield parent.parent();
                 case UnaryOperationToken uot:
@@ -75,7 +74,6 @@ public class StringAstParserImpl implements AstParser<String> {
                 default:
                     throw new UnsupportedOperationException("Token type not supported: " + token.getClass().getSimpleName());
         };
-        System.out.println("placed " + token.value() + " under " + node.parent() + " next parent " + nextParent);
         return new Pair<>(node, nextParent);
     }
 
@@ -92,10 +90,7 @@ public class StringAstParserImpl implements AstParser<String> {
             curr = curr.parent();
         }
 
-        System.out.println("curr: " + curr + " before: " + before + " this: " + thisNode);
-
         if(before.token() instanceof BinaryOperationToken bot) {
-            System.out.println("before is bot " + bot.value());
             if(bot.priority() < thisBot.priority()) {    // priority & left to right
 
                 // higher priority has to be child of lower priority

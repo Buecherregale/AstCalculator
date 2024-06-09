@@ -9,15 +9,6 @@ public enum BinaryOperationToken implements Token<String> {
     DIVIDE("/", 2, (a, b) -> a / b),
     POWER("^", 3, Math::pow);
 
-    public static BinaryOperationToken of(String value) {
-        for (BinaryOperationToken token : values()) {
-            if (token.value.equals(value)) {
-                return token;
-            }
-        }
-        throw new IllegalArgumentException("No such token: " + value);
-    }
-
     private final String value;
     private final int priority;
     private final Operations.BinaryOperation<Double, Double> operation;

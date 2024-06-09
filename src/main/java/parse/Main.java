@@ -11,6 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         String inp = "1+2*sin(4)*3.242";
+        inp = "4+5-6*7+sqrt(9)";
         System.out.println(inp);
 
         Tokenizer<String> tokenizer = new StringTokenizer();
